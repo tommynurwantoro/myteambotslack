@@ -1,0 +1,16 @@
+# Copy this file to /lib/systemd/system/ folder
+[Unit]
+Description=tbot
+
+[Service]
+Type=simple
+User=root
+
+Restart=on-failure
+RestartSec=10
+
+WorkingDirectory=/root/go/src/github.com/bot/myteambotslack
+ExecStart=/root/go/src/github.com/bot/myteambotslack/tbot
+
+[Install]
+WantedBy=multi-user.target
