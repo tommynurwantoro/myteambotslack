@@ -61,7 +61,7 @@ func (c *Command) Help() Command {
 }
 
 func (c *Command) TitipReview() Command {
-	return Command{"titip_review", "{title#url#telegram-users} Titip review PR"}
+	return Command{"titip_review", "`[title][url][telegram-users]` Titip review PR"}
 }
 
 func (c *Command) AntrianReview() Command {
@@ -69,19 +69,19 @@ func (c *Command) AntrianReview() Command {
 }
 
 func (c *Command) SudahDireview() Command {
-	return Command{"sudah_direview", "{urutan} Ngubah antrian review untuk yang sudah direview"}
+	return Command{"sudah_direview", "`[urutan]` Ngubah antrian review untuk yang sudah direview"}
 }
 
 func (c *Command) SudahDireviewSemua() Command {
-	return Command{"sudah_direview_semua", "{urutan} Ngubah antrian review untuk yang sudah direview untuk semua user"}
+	return Command{"sudah_direview_semua", "`[urutan]` Ngubah antrian review untuk yang sudah direview untuk semua user"}
 }
 
 func (c *Command) TambahUserReview() Command {
-	return Command{"tambah_user_review", "{urutan#telegram-users} Nambahin user ke antrian review"}
+	return Command{"tambah_user_review", "`[urutan][telegram-users]` Nambahin user ke antrian review"}
 }
 
 func (c *Command) SiapQA() Command {
-	return Command{"siap_qa", "{urutan} Mindahin antrian review ke antrian QA"}
+	return Command{"siap_qa", "`[urutan]` Mindahin antrian review ke antrian QA"}
 }
 
 func (c *Command) AntrianQA() Command {
@@ -89,11 +89,11 @@ func (c *Command) AntrianQA() Command {
 }
 
 func (c *Command) SudahDites() Command {
-	return Command{"sudah_dites", "{urutan} Ngubah antrian QA untuk yang sudah dites"}
+	return Command{"sudah_dites", "`[urutan]` Ngubah antrian QA untuk yang sudah dites"}
 }
 
 func (c *Command) SimpanCommand() Command {
-	return Command{"simpan_command", "{kata#pesan} Kalau ada pengingat dengan perintah tertentu bisa pakai command ini loh"}
+	return Command{"simpan_command", "`[kata][pesan]` Kalau ada pengingat dengan perintah tertentu bisa pakai command ini loh"}
 }
 
 func (c *Command) ListCommand() Command {
@@ -101,11 +101,11 @@ func (c *Command) ListCommand() Command {
 }
 
 func (c *Command) UbahCommand() Command {
-	return Command{"ubah_command", "{urutan#pesan} Ubah isi pengingat yang ada di list command"}
+	return Command{"ubah_command", "`[urutan][pesan]` Ubah isi pengingat yang ada di list command"}
 }
 
 func (c *Command) HapusCommand() Command {
-	return Command{"hapus_command", "{urutan} Hapus isi pengingat yang ada di list command"}
+	return Command{"hapus_command", "`[urutan]` Hapus isi pengingat yang ada di list command"}
 }
 
 // GenerateAllCommands _
