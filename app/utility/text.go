@@ -8,7 +8,8 @@ import (
 func Start() string {
 	return "Halo!!\n" +
 		"Bot ini punya beberapa fitur yang bisa kamu pakai untuk tim kamu.\n" +
-		"Coba gunakan command `help` untuk melihat perintah-perintah yang tersedia ya.\n"
+		"Coba gunakan command `help` untuk melihat perintah-perintah yang tersedia ya.\n" +
+		"Want to contribute? https://github.com/tommynurwantoro/myteambotslack"
 }
 
 // Help _
