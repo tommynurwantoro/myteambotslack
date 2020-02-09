@@ -11,10 +11,8 @@ Slack bot for some activities in my team
 ### Prerequisite
 
 - Git
-- Go 1.11 or later
-- Go Dep 0.5 or later
+- Go 1.13.4 or later
 - MySQL 5.7
-- Redis 4.0.11 or later
 
 ### Installation
 
