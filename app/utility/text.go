@@ -42,7 +42,7 @@ func InvalidSequece() string {
 }
 
 func GreetingNewJoinedUser(username string) string {
-	return fmt.Sprintf("Welcome @%s!!! GLHF 😁", username)
+	return fmt.Sprintf("Welcome <@%s>!!! GLHF 😁", username)
 }
 
 func CustomCommandNotFound() string {
