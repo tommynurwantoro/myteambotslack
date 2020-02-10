@@ -35,12 +35,44 @@ func GetQAQueue(channelID string) string {
 func AddReview(channelID string, args string) string {
 	parameter := utility.GetArgsParameter(args)
 	split := strings.Split(parameter, "][")
+	title := ""
+	url := ""
+	users := ""
+
+	for i, s := range split {
+		// If Title
+		if i == 0 {
+			title = s
+		}
+		// If URL
+		if i == 1 {
+			url = s
+			if strings.HasPrefix(url, "<") {
+				url = url[1:]
+			}
+
+			if strings.HasSuffix(url, ">") {
+				url = url[:len(url)-1]
+			}
+		}
+		// If Users
+		if i == 2 {
+			users = s
+			if strings.HasPrefix(users, ">") {
+				users = users[1:]
+			}
+
+			if strings.HasSuffix(users, "<") {
+				users = url[:len(url)-1]
+			}
+		}
+	}
 
 	if len(split) < 3 {
 		return utility.InvalidParameter()
 	}
 
-	repository.InsertReview(split[0], split[1][1:len(split[1])-1], split[2], channelID)
+	repository.InsertReview(title, url, users, channelID)
 
 	return utility.SuccessInsertData()
 }
