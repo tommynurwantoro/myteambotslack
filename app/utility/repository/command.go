@@ -8,11 +8,11 @@ import (
 /**
 start - Tentang bot ini
 help - Nampilin semua perintah yang ada
-titip_review - {title#url#telegram-users} Titip review PR
+titip_review - {title#url#users} Titip review PR
 antrian_review - Nampilin semua antrian PR yang belum direview
 sudah_direview - {urutan} Ngubah antrian review untuk yang sudah direview
 sudah_direview_semua - {urutan} Ngubah antrian review untuk yang sudah direview untuk semua user
-tambah_user_review - {urutan#telegram-users} Nambahin user ke antrian review
+tambah_user_review - {urutan#users} Nambahin user ke antrian review
 siap_qa - Mindahin antrian review ke antrian QA
 antrian_qa - Nampilin semua antrian PR yang belum dites
 sudah_dites - {urutan} Ngubah antrian QA untuk yang sudah dites
@@ -61,7 +61,7 @@ func (c *Command) Help() Command {
 }
 
 func (c *Command) TitipReview() Command {
-	return Command{"titip_review", "`[title][url][telegram-users]` Titip review PR"}
+	return Command{"titip_review", "`[title][url][users]` Titip review PR"}
 }
 
 func (c *Command) AntrianReview() Command {
@@ -77,7 +77,7 @@ func (c *Command) SudahDireviewSemua() Command {
 }
 
 func (c *Command) TambahUserReview() Command {
-	return Command{"tambah_user_review", "`[urutan][telegram-users]` Nambahin user ke antrian review"}
+	return Command{"tambah_user_review", "`[urutan][users]` Nambahin user ke antrian review"}
 }
 
 func (c *Command) SiapQA() Command {
