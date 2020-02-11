@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/bot/myteambotslack/app/models"
+	"github.com/bot/myteambotslack/app/utility"
 	"github.com/volatiletech/sqlboiler/boil"
 	"github.com/volatiletech/sqlboiler/queries/qm"
 )
@@ -174,7 +175,7 @@ func GenerateContentReview(reviews []*models.Review) string {
 
 // Private functions
 func removeAvailableUsers(users, deleteUser string) string {
-	splitUsers := strings.Split(users, " ")
+	splitUsers := utility.GetUsersFromArgs(users)
 	var newUsers []string
 
 	for _, user := range splitUsers {

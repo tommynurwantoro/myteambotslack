@@ -54,3 +54,8 @@ func GetArgsParameter(args string) string {
 
 	return parameter[1 : len(parameter)-1]
 }
+
+func GetUsersFromArgs(args string) []string {
+	rgx := regexp.MustCompile(`\<([^>]*?)\>`)
+	return rgx.FindAllString(args, -1)
+}
