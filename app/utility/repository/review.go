@@ -102,6 +102,32 @@ func UpdateToDoneReview(sequences []string, channelID string, user string, force
 	return successToUpdate
 }
 
+func DeleteReview(sequences []string, channelID string) bool {
+	successToDelete := false
+	reviews := GetAllNeedReview(channelID)
+
+	for _, seq := range sequences {
+		sequence, err := strconv.Atoi(seq)
+		if err != nil {
+			continue
+		}
+
+		for i, review := range reviews {
+			if i+1 == sequence {
+				err := review.DeleteG()
+				if err != nil {
+					panic(err)
+				}
+
+				successToDelete = true
+				break
+			}
+		}
+	}
+
+	return successToDelete
+}
+
 func UpdateToReadyQA(sequences []string, channelID string) bool {
 	successToUpdate := false
 	reviews := GetAllNeedReview(channelID)

@@ -51,6 +51,9 @@ func (m *Method) HandleCommand() {
 	case command.TambahUserReview().Name:
 		response = TambahUserReview(m.message.Channel, m.message.Text)
 
+	case command.HapusReview().Name:
+		response = HapusReview(m.message.Channel, m.message.Text)
+
 	case command.SiapQA().Name:
 		response = SiapQA(m.message.Channel, m.message.Text)
 

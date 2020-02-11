@@ -99,6 +99,24 @@ func SudahDireview(channelID string, username, args string, force bool) string {
 	return utility.InvalidSequece()
 }
 
+// HapusReview _
+func HapusReview(channelID string, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
+	parameter := utility.GetArgsParameter(args)
+
+	sequences := strings.Split(parameter, " ")
+	success := repository.DeleteReview(sequences, channelID)
+
+	if success {
+		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), AntrianReview(channelID))
+	}
+
+	return utility.InvalidSequece()
+}
+
 // SiapQA _
 func SiapQA(channelID string, args string) string {
 	if !utility.IsValidParameter(args) {

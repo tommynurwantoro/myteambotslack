@@ -42,6 +42,7 @@ func (c *Command) AllVisible() []Command {
 		c.SudahDireview(),
 		c.SudahDireviewSemua(),
 		c.TambahUserReview(),
+		c.HapusReview(),
 		c.SiapQA(),
 		c.AntrianQA(),
 		c.SudahDites(),
@@ -78,6 +79,10 @@ func (c *Command) SudahDireviewSemua() Command {
 
 func (c *Command) TambahUserReview() Command {
 	return Command{"tambah_user_review", "`[urutan][users]` Nambahin user ke antrian review"}
+}
+
+func (c *Command) HapusReview() Command {
+	return Command{"hapus_review", "`[urutan]` Hapus dari antrian review"}
 }
 
 func (c *Command) SiapQA() Command {
