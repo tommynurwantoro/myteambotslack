@@ -45,10 +45,10 @@ func (c *Command) AllVisible() []Command {
 		c.SiapQA(),
 		c.AntrianQA(),
 		c.SudahDites(),
-		c.SimpanCommand(),
-		c.ListCommand(),
-		c.UbahCommand(),
-		c.HapusCommand(),
+		c.SimpanCustomCommand(),
+		c.ListCustomCommand(),
+		c.UbahCustomCommand(),
+		c.HapusCustomCommand(),
 	}
 }
 
@@ -92,19 +92,19 @@ func (c *Command) SudahDites() Command {
 	return Command{"sudah_dites", "`[urutan]` Ngubah antrian QA untuk yang sudah dites"}
 }
 
-func (c *Command) SimpanCommand() Command {
+func (c *Command) SimpanCustomCommand() Command {
 	return Command{"simpan_command", "`[kata][pesan]` Kalau ada pengingat dengan perintah tertentu bisa pakai command ini loh"}
 }
 
-func (c *Command) ListCommand() Command {
+func (c *Command) ListCustomCommand() Command {
 	return Command{"list_command", "List custom command yang ada di group kamu"}
 }
 
-func (c *Command) UbahCommand() Command {
+func (c *Command) UbahCustomCommand() Command {
 	return Command{"ubah_command", "`[urutan][pesan]` Ubah isi pengingat yang ada di list command"}
 }
 
-func (c *Command) HapusCommand() Command {
+func (c *Command) HapusCustomCommand() Command {
 	return Command{"hapus_command", "`[urutan]` Hapus isi pengingat yang ada di list command"}
 }
 

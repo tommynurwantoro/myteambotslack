@@ -9,8 +9,8 @@ import (
 	"github.com/bot/myteambotslack/app/utility/repository"
 )
 
-// GetReviewQueue _
-func GetReviewQueue(channelID string) string {
+// AntrianReview _
+func AntrianReview(channelID string) string {
 	reviews := repository.GetAllNeedReview(channelID)
 
 	if len(reviews) == 0 {
@@ -20,8 +20,8 @@ func GetReviewQueue(channelID string) string {
 	return fmt.Sprintf("Ini antrian review tim kamu:\n%s", repository.GenerateContentReview(reviews))
 }
 
-// GetQAQueue _
-func GetQAQueue(channelID string) string {
+// AntrianQA _
+func AntrianQA(channelID string) string {
 	reviews := repository.GetAllNeedQA(channelID)
 
 	if len(reviews) == 0 {
@@ -31,8 +31,12 @@ func GetQAQueue(channelID string) string {
 	return fmt.Sprintf("Ini antrian QA tim kamu:\n%s", repository.GenerateContentReview(reviews))
 }
 
-// AddReview _
-func AddReview(channelID string, args string) string {
+// TitipReview _
+func TitipReview(channelID string, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 	split := strings.Split(parameter, "][")
 	title := ""
@@ -77,49 +81,66 @@ func AddReview(channelID string, args string) string {
 	return utility.SuccessInsertData()
 }
 
-// UpdateDoneReview _
-func UpdateDoneReview(channelID string, username, args string, force bool) string {
+// SudahDireview _
+func SudahDireview(channelID string, username, args string, force bool) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 
 	sequences := strings.Split(parameter, " ")
 	success := repository.UpdateToDoneReview(sequences, channelID, fmt.Sprintf("<@%s>", username), force)
 
 	if success {
-		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), GetReviewQueue(channelID))
+		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), AntrianReview(channelID))
 	}
 
 	return utility.InvalidSequece()
 }
 
-// UpdateReadyQA _
-func UpdateReadyQA(channelID string, args string) string {
+// SiapQA _
+func SiapQA(channelID string, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 
 	sequences := strings.Split(parameter, " ")
 	success := repository.UpdateToReadyQA(sequences, channelID)
 
 	if success {
-		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), GetReviewQueue(channelID))
+		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), AntrianReview(channelID))
 	}
 
 	return utility.InvalidSequece()
 }
 
-// UpdateDoneQA _
-func UpdateDoneQA(channelID string, args string) string {
+// SudahDites _
+func SudahDites(channelID string, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 
 	sequences := strings.Split(parameter, " ")
 	success := repository.UpdateToDoneQA(sequences, channelID)
 
 	if success {
-		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), GetQAQueue(channelID))
+		return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), AntrianQA(channelID))
 	}
 
 	return utility.InvalidSequece()
 }
 
-func AddUserReview(channelID string, args string) string {
+// TambahUserReview _
+func TambahUserReview(channelID string, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 	split := strings.Split(parameter, "][")
 
@@ -134,7 +155,7 @@ func AddUserReview(channelID string, args string) string {
 	for i, review := range reviews {
 		if i+1 == sequence {
 			repository.UpdateReview(review.ID, review.Title, review.URL, fmt.Sprintf("%s %s", review.Users, split[1]))
-			return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), GetReviewQueue(channelID))
+			return fmt.Sprintf("%s\n%s", utility.SuccessUpdateData(), AntrianReview(channelID))
 		}
 	}
 

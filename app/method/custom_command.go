@@ -9,7 +9,11 @@ import (
 	"github.com/bot/myteambotslack/app/utility/repository"
 )
 
-func SaveCustomCommandGroup(channelID string, username, args string) string {
+func SimpanCustomCommand(channelID string, username, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 	split := strings.Split(parameter, "][")
 
@@ -22,7 +26,7 @@ func SaveCustomCommandGroup(channelID string, username, args string) string {
 	return utility.SuccessInsertData()
 }
 
-func ListCustomCommandGroup(channelID string, username string) string {
+func ListCustomCommand(channelID string, username string) string {
 	customCommands := repository.GetAllCustomCommandsByChannelID(channelID)
 
 	if len(customCommands) == 0 {
@@ -32,7 +36,11 @@ func ListCustomCommandGroup(channelID string, username string) string {
 	return fmt.Sprintf("Ini list command tim kamu:\n%s", repository.GenerateCustomCommands(customCommands))
 }
 
-func UpdateCustomCommandGroup(channelID string, username, args string) string {
+func UbahCustomCommand(channelID string, username, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 	split := strings.Split(parameter, "][")
 
@@ -50,7 +58,11 @@ func UpdateCustomCommandGroup(channelID string, username, args string) string {
 	return utility.SuccessUpdateData()
 }
 
-func DeleteCustomCommandGroup(channelID string, username, args string) string {
+func HapusCustomCommand(channelID string, username, args string) string {
+	if !utility.IsValidParameter(args) {
+		return utility.InvalidParameter()
+	}
+
 	parameter := utility.GetArgsParameter(args)
 
 	sequences := strings.Split(parameter, " ")
@@ -59,7 +71,7 @@ func DeleteCustomCommandGroup(channelID string, username, args string) string {
 	return utility.SuccessUpdateData()
 }
 
-func RespondCustomCommandGroup(channelID string, args string) string {
+func RespondCustomCommand(channelID string, args string) string {
 	commands := repository.GetAllCustomCommandsByChannelID(channelID)
 	if commands != nil {
 		for _, c := range commands {
