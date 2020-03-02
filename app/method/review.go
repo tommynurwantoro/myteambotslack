@@ -10,25 +10,33 @@ import (
 )
 
 // AntrianReview _
-func AntrianReview(channelID string) string {
+func AntrianReview(channelID string) []string {
+	var antrianReviews []string
 	reviews := repository.GetAllNeedReview(channelID)
 
 	if len(reviews) == 0 {
-		return "Gak ada antrian review nih 👍🏻"
+		return append([]string{"Gak ada antrian review nih 👍🏻"})
 	}
 
-	return fmt.Sprintf("Ini antrian review tim kamu:\n%s", repository.GenerateContentReview(reviews))
+	antrianReviews = repository.GenerateContentReview(reviews)
+	antrianReviews = append([]string{"Ini antrian review tim kamu:\n"}, antrianReviews...)
+
+	return antrianReviews
 }
 
 // AntrianQA _
-func AntrianQA(channelID string) string {
+func AntrianQA(channelID string) []string {
+	var antrianQA []string
 	reviews := repository.GetAllNeedQA(channelID)
 
 	if len(reviews) == 0 {
-		return "Gak ada antrian QA nih 👍🏻"
+		return append([]string{"Gak ada antrian QA nih 👍🏻"})
 	}
 
-	return fmt.Sprintf("Ini antrian QA tim kamu:\n%s", repository.GenerateContentReview(reviews))
+	antrianQA = repository.GenerateContentReview(reviews)
+	antrianQA = append([]string{"Ini antrian QA tim kamu:\n"}, antrianQA...)
+
+	return antrianQA
 }
 
 // TitipReview _
