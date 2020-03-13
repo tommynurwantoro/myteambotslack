@@ -196,7 +196,7 @@ func GenerateContentReview(reviews []*models.Review) []string {
 			buffer.WriteString(fmt.Sprintf("%d. <%s|%s> %s\n", i+1, review.URL, review.Title, review.Users))
 		}
 
-		if (i > 0 && i%10 == 0) || i == len(reviews)-2 {
+		if (i > 0 && i%10 == 0) || i == len(reviews)-1 {
 			fmt.Println("APPEND")
 			allReviews = append(allReviews, buffer.String())
 			buffer.Reset()
