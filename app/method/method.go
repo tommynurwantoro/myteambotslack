@@ -19,6 +19,7 @@ func NewMethod(message *slack.MessageEvent) *Method {
 
 func (m *Method) HandleCommand() {
 	var command *repository.Command
+	var responses []string
 	split := strings.Split(m.message.Text, " ")
 
 	if len(split) < 2 {
@@ -27,56 +28,57 @@ func (m *Method) HandleCommand() {
 	}
 
 	splitCommand := split[1]
-	response := ""
 
 	switch splitCommand {
 	case command.Start().Name:
-		response = utility.Start()
+		responses = append(responses, utility.Start())
 
 	case command.Help().Name:
-		response = utility.Help(repository.GenerateAllCommands())
+		responses = append(responses, utility.Help(repository.GenerateAllCommands()))
 
 	case command.TitipReview().Name:
-		response = TitipReview(m.message.Channel, m.message.Text)
+		responses = append(responses, TitipReview(m.message.Channel, m.message.Text))
 
 	case command.AntrianReview().Name:
-		response = AntrianReview(m.message.Channel)
+		responses = append(responses, AntrianReview(m.message.Channel)...)
 
 	case command.SudahDireview().Name:
-		response = SudahDireview(m.message.Channel, m.message.User, m.message.Text, false)
+		responses = append(responses, SudahDireview(m.message.Channel, m.message.User, m.message.Text, false))
 
 	case command.SudahDireviewSemua().Name:
-		response = SudahDireview(m.message.Channel, m.message.User, m.message.Text, true)
+		responses = append(responses, SudahDireview(m.message.Channel, m.message.User, m.message.Text, true))
 
 	case command.TambahUserReview().Name:
-		response = TambahUserReview(m.message.Channel, m.message.Text)
+		responses = append(responses, TambahUserReview(m.message.Channel, m.message.Text))
 
 	case command.HapusReview().Name:
-		response = HapusReview(m.message.Channel, m.message.Text)
+		responses = append(responses, HapusReview(m.message.Channel, m.message.Text))
 
 	case command.SiapQA().Name:
-		response = SiapQA(m.message.Channel, m.message.Text)
+		responses = append(responses, SiapQA(m.message.Channel, m.message.Text))
 
 	case command.AntrianQA().Name:
-		response = AntrianQA(m.message.Channel)
+		responses = append(responses, AntrianQA(m.message.Channel)...)
 
 	case command.SudahDites().Name:
-		response = SudahDites(m.message.Channel, m.message.Text)
+		responses = append(responses, SudahDites(m.message.Channel, m.message.Text))
 
 	case command.SimpanCustomCommand().Name:
-		response = SimpanCustomCommand(m.message.Channel, m.message.User, m.message.Text)
+		responses = append(responses, SimpanCustomCommand(m.message.Channel, m.message.User, m.message.Text))
 
 	case command.ListCustomCommand().Name:
-		response = ListCustomCommand(m.message.Channel, m.message.User)
+		responses = append(responses, ListCustomCommand(m.message.Channel, m.message.User))
 
 	case command.UbahCustomCommand().Name:
-		response = UbahCustomCommand(m.message.Channel, m.message.User, m.message.Text)
+		responses = append(responses, UbahCustomCommand(m.message.Channel, m.message.User, m.message.Text))
 
 	case command.HapusCustomCommand().Name:
-		response = HapusCustomCommand(m.message.Channel, m.message.User, m.message.Text)
+		responses = append(responses, HapusCustomCommand(m.message.Channel, m.message.User, m.message.Text))
 	}
 
-	app.RTM.SendMessage(app.RTM.NewOutgoingMessage(response, m.message.Channel))
+	for _, response := range responses {
+		app.RTM.SendMessage(app.RTM.NewOutgoingMessage(response, m.message.Channel))
+	}
 }
 
 func (m *Method) HandleMessage() {

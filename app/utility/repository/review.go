@@ -185,8 +185,9 @@ func UpdateToDoneQA(sequences []string, channelID string) bool {
 }
 
 // GenerateContentReview _
-func GenerateContentReview(reviews []*models.Review) string {
+func GenerateContentReview(reviews []*models.Review) []string {
 	var buffer bytes.Buffer
+	var allReviews []string
 
 	for i, review := range reviews {
 		if review.Title == "" {
@@ -194,9 +195,15 @@ func GenerateContentReview(reviews []*models.Review) string {
 		} else {
 			buffer.WriteString(fmt.Sprintf("%d. <%s|%s> %s\n", i+1, review.URL, review.Title, review.Users))
 		}
+
+		if (i > 0 && i%10 == 0) || i == len(reviews)-1 {
+			fmt.Println("APPEND")
+			allReviews = append(allReviews, buffer.String())
+			buffer.Reset()
+		}
 	}
 
-	return buffer.String()
+	return allReviews
 }
 
 // Private functions
