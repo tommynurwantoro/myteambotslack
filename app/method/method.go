@@ -1,6 +1,7 @@
 package method
 
 import (
+	"errors"
 	"strings"
 
 	"github.com/bot/myteambotslack/app"
@@ -9,17 +10,36 @@ import (
 	"github.com/nlopes/slack"
 )
 
+var LegacyCommands = [...]string{
+	"start", "help", "titip_review", "antrian_review", "sudah_direview",
+	"sudah_direview_semua", "tambah_user_review", "hapus_review",
+	"siap_qa", "antrian_qa", "sudah_dites", "simpan_command", "list_command",
+	"ubah_command", "hapus_command",
+}
+
+var NewCommands = [...]string{
+	"titip", "antrian", "sudah", "tambah", "hapus", "siap",
+}
+
+func contains(strs []string, str string) bool {
+	for _, a := range strs {
+		if a == str {
+			return true
+		}
+	}
+
+	return false
+}
+
 type Method struct {
 	message *slack.MessageEvent
 }
 
-func NewMethod(message *slack.MessageEvent) *Method {
-	return &Method{message: message}
+func NewMethod(message *slack.MessageEvent) Method {
+	return Method{message: message}
 }
 
-func (m *Method) HandleCommand() {
-	var command *repository.Command
-	var responses []string
+func (m Method) HandleCommand() {
 	split := strings.Split(m.message.Text, " ")
 
 	if len(split) < 2 {
@@ -28,6 +48,23 @@ func (m *Method) HandleCommand() {
 	}
 
 	splitCommand := split[1]
+
+	if contains(LegacyCommands[:], splitCommand) {
+		m.HandleLegacyCommand(splitCommand)
+	} else {
+		if err := m.HandleNewCommand(m.message.Text); err != nil {
+			app.RTM.SendMessage(app.RTM.NewOutgoingMessage(err.Error(), m.message.Channel))
+		}
+	}
+}
+
+func (m Method) HandleNewCommand(line string) error {
+	return errors.New("Perintah ini belum diimplementasikan, tunggu implementasi selanjutnya")
+}
+
+func (m Method) HandleLegacyCommand(splitCommand string) {
+	var command *repository.Command
+	var responses []string
 
 	switch splitCommand {
 	case command.Start().Name:
@@ -81,7 +118,7 @@ func (m *Method) HandleCommand() {
 	}
 }
 
-func (m *Method) HandleMessage() {
+func (m Method) HandleMessage() {
 	response := RespondCustomCommand(m.message.Channel, m.message.Text)
 	if response != "" {
 		app.RTM.SendMessage(app.RTM.NewOutgoingMessage(response, m.message.Channel))

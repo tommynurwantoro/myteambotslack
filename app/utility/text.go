@@ -22,6 +22,12 @@ func InvalidCommand() string {
 	return "Aku gak ngerti perintah itu, coba perintah yang lain ya."
 }
 
+// New Commands() string
+
+func UnimplementedNewCommand() string {
+	return "Ini perintah baru dan belum diimplementasi."
+}
+
 // InvalidParameter _
 func InvalidParameter() string {
 	return "Parameternya belum bener tuh, coba dicek lagi ya"
